@@ -1,11 +1,58 @@
 # reu-2023-graph-db
 A repository to house the 2023 REU Graph DB project
 
+# Contained In The Project 
 ## BRON
 Our project builds on the existing graph database made by MIT. The database links Threat Tactics, Techniques, and Patterns with Defensive Weaknesses, Vulnerabilities and Affected Platform Configurations for Cyber Hunting. Threat data from MITRE ATT&CK, CAPEC, CWE, CVE, and so on are linked together in a graph called BRON.\
 Research Paper can be found here: https://arxiv.org/pdf/2010.00533.pdf \
 Project repository can be found here: https://github.com/ALFA-group/BRON#readme
 
+## Driver Container
+### Contents
+- driver.py
+- get_json_from_db.py
+- insert_control_data.py
+- insert_tactic_path.py
+- insert_tech_ctrl_edge.py
+- nist800-53-r5-mappings2.json
+- rm_dup_tac_tech.py
+### Integration
+The files listed above all run in the driver container that will update the BRON database with new information, create new edges between existing information, and clean the database of any duplicate data that will hinder the speed of the queries.
+
+## Query Container
+### Contents
+- controls.json
+- cve.json
+- cwe-cve_to_techniques.py
+- cwe.json
+- tech_tac_graph.py
+### Integration
+The above files consist of the program (cwe-cve_to_techniques.py, tech_tac_graph.py) and test data that can be used to run the program.
+
+# How The Project Works
+## Database Completion
+In the driver container, we connect to the BRON database that has been already set up and mostly filled by following the steps from the BRON project repository (link above). Here we can add and modify collections within the database using python-arango. The information added into the database can be found in nist800-53-r5-mappings2.json.
+
+## Querying the Database
+In the query container, we use the complete information from the BRON database to find a comprehensive list of Techniques and Tactics from a given list of CVE/CWE's. This list of CVE/CWE's is a json file that will be provided to the program upon calling. Sample CVE/CWE json files have been provided.\
+A list of implemented controls will also be given at call time, test data provided. This list of implemented controls will be used to filter the tactics and techniques to eliminate mitigated tactics and techniques and remove them from the graph.\
+From this filtered list, we have made an interactive graph that will show all connected techniques and tactics that are vulnerable through a given system.
+
+## Reading the Graph
+The graph shown will include vulnerable tactics and techniques. Among them is a red node (Tactic), this is the default highest priority tactic. This node has been chosen by the algorithm as the most infuential node that would be the best to mitigate first.
+
+## Understanding the Algorithm
+The default algorithm implemented to prioritize influencial nodes is based upon two factors. Tactic to Tactic connectivity, and Tactic to Technique connectivity. 
+### ***Tactic to Tactic***
+From the graph, we can find attack tactics that connect to other tactics to form an attack path. The amount of connections is directly influenced by the amount of CVE/CWE's detected in a system, and the amount of controls implemented in the system. The first sort of the algorithm is split into three categories, High, Medium, and Low. Depending on the amount of edges a tactic has to other tactics determines it's category. Due to the linear path of an attack, the maximum amount of tactic to tactic connections is two. 
+- High (Tactic has 2 Tactic to Tactic edges)
+- Medium (Tactic has 1 Tactic to Tactic edge)
+- Low (Tactic has no Tactic to Tactic edges)
+### ***Tactic to Technique***
+After the Tactics have been categorized into High, Medium, and Low priority. The categories are individually sorted based on the amount of Tactic to Technique edges. The less amount of these type of edges a Tactic has, the more prioritized that Tactic will be. \
+For example, a tactic of high priority that has 5 technique edges will be *less* important than a tactic of high priority that has 1 technique edge by default. This is due to the amount of controls that would have to be implemented to mitigate that specific tactic. A single control mitigation would be prioritized over a several control mitigation.
+
+# To Use The Program
 ## WORK IN PROGRESS - NO OFFICIAL DOCKER YET
 ## Docker
 ### Pre-requisites:
