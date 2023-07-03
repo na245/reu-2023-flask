@@ -49,8 +49,8 @@ From the graph, we can find attack tactics that connect to other tactics to form
 - Medium (1 Tactic to Tactic edge)
 - Low (No Tactic to Tactic edges)
 ### ***Tactic to Technique***
-After the Tactics have been categorized into High, Medium, and Low priority. The categories are individually sorted based on the amount of Tactic to Technique edges. The less amount of these type of edges a Tactic has, the more prioritized that Tactic will be. \
-For example, a tactic of high priority that has 5 technique edges will be *less* important than a tactic of high priority that has 1 technique edge by default. This is due to the amount of controls that would have to be implemented to mitigate that specific tactic. A single control mitigation would be prioritized over a several control mitigation.
+After the Tactics have been categorized into High, Medium, and Low priority, the categories are individually sorted based on the amount of Tactic to Technique edges. The smaller the amount of these edges a Tactic has, the more prioritized that Tactic will be. \
+For example, a tactic of high priority that has 5 technique edges will be *less* important than a tactic of high priority that has 1 technique edge, by default. This is due to the amount of controls that would have to be implemented to mitigate that specific tactic. A single control mitigation would be prioritized over a several controls mitigation.
 
 # To Use The Program
 ## WORK IN PROGRESS - NO OFFICIAL DOCKER YET
