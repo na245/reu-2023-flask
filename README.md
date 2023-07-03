@@ -2,7 +2,9 @@
 A repository to house the 2023 REU Graph DB project
 
 ## BRON
-Our project builds on the existing graph database made by MIT. The database links Threat Tactics, Techniques, and Patterns with Defensive Weaknesses, Vulnerabilities and Affected Platform Configurations for Cyber Hunting. Threat data from MITRE ATT&CK, CAPEC, CWE, CVE, and so on are linked together in a graph called BRON. Project can be found here: https://github.com/ALFA-group/BRON#readme
+Our project builds on the existing graph database made by MIT. The database links Threat Tactics, Techniques, and Patterns with Defensive Weaknesses, Vulnerabilities and Affected Platform Configurations for Cyber Hunting. Threat data from MITRE ATT&CK, CAPEC, CWE, CVE, and so on are linked together in a graph called BRON.\
+Research Paper can be found here: https://arxiv.org/pdf/2010.00533.pdf \
+Project repository can be found here: https://github.com/ALFA-group/BRON#readme
 
 ## WORK IN PROGRESS - NO OFFICIAL DOCKER YET
 ## Docker
