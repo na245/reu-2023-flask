@@ -58,6 +58,7 @@ For example, a tactic of high priority that has 5 technique edges will be *less*
 ### Pre-requisites:
 - Docker
 - Docker Compose
+- Running BRON Container (Instructions found at https://github.com/ALFA-group/BRON#readme)
 
 To use this program ontop of BRON and ArangoDB, clone this repository and run:
 
