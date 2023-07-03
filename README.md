@@ -45,9 +45,9 @@ The graph shown will include vulnerable tactics and techniques. Among them is a 
 The default algorithm implemented to prioritize influencial nodes is based upon two factors. Tactic to Tactic connectivity, and Tactic to Technique connectivity. 
 ### ***Tactic to Tactic***
 From the graph, we can find attack tactics that connect to other tactics to form an attack path. The amount of connections is directly influenced by the amount of CVE/CWE's detected in a system, and the amount of controls implemented in the system. The first sort of the algorithm is split into three categories, High, Medium, and Low. Depending on the amount of edges a tactic has to other tactics determines it's category. Due to the linear path of an attack, the maximum amount of tactic to tactic connections is two. 
-- High (Tactic has 2 Tactic to Tactic edges)
-- Medium (Tactic has 1 Tactic to Tactic edge)
-- Low (Tactic has no Tactic to Tactic edges)
+- High (2 Tactic to Tactic edges)
+- Medium (1 Tactic to Tactic edge)
+- Low (No Tactic to Tactic edges)
 ### ***Tactic to Technique***
 After the Tactics have been categorized into High, Medium, and Low priority. The categories are individually sorted based on the amount of Tactic to Technique edges. The less amount of these type of edges a Tactic has, the more prioritized that Tactic will be. \
 For example, a tactic of high priority that has 5 technique edges will be *less* important than a tactic of high priority that has 1 technique edge by default. This is due to the amount of controls that would have to be implemented to mitigate that specific tactic. A single control mitigation would be prioritized over a several control mitigation.
