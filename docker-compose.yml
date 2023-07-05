@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  dockertesting:
+    ports: 
+      - 8560
+    container_name: dockertesting
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+
+volumes: 
+  brondb_data_container:
+  brondb_apps_data_container:
+
+secrets:
+  arango_root_password:
+    file: /home/aurora/BRON/arango_root_password
+
