@@ -68,15 +68,15 @@ To use this program ontop of BRON and ArangoDB, clone this repository and run:
     docker-compose up -d 
 
 ### The program starts in two containers:
-- Driver: This container will grant access to the arango database and create/manipulate the database for use. Will close after completion.
-- REU-2023: This container holds the program needed to run queries, display graphs, and prioritize the returned information
+- driver: This container will grant access to the arango database and create/manipulate the database for use. Will close after completion.
+- reu-2023: This container holds the program needed to run queries, display graphs, and prioritize the returned information
 
 ## Getting Started
 <p>Build the containers on localhost.</p>
 Use this command after the containers have been built: 
     
-    sudo docker exec –it REU-2023 /bin/bash
-This will create a secure shell in the REU-2023 container.
+    sudo docker exec –it reu-2023 /bin/bash
+This will create a secure shell in the reu-2023 container.
 
 ### This container is equiped with test data:
 - controls.json - a json file containing the implemented controls for a given system
