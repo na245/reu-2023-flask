@@ -1,0 +1,2 @@
+arango
+python-arango==7.5.8

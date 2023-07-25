@@ -1,0 +1,5 @@
+﻿flask
+python-arango==7.5.8
+networkx
+pyvis==0.2.1
+json2table

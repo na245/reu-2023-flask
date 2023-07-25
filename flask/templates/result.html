@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="/static/css/myfile.css">
+    <title>Results Page</title>
+<body>
+
+<h1>Analysis Complete</h1>
+<h3>Select a graph to view.</h3>
+
+<div class="mainContainer">
+    <div class="container">
+        <h1>View Connectivity Graph</h1>
+        <p>This graph shows all tactics and techniques that can be reached through the vulnerabilities in the system.<br>
+            The red colored node in this graph is the suggested most influencial tactic that should be mitigated first.</p>
+        <form action="/templates/graph" method="GET"> 
+        <button name="TestButton" type="submit">View</button>
+        </form>
+    </div>
+    <div class="container">
+        <h1>View Attack Paths Graph</h1>
+        <p>This graph presents possible attack paths created from the techniques available in the Connectivity Graph.</p>
+        <form action="/templates/network_flow" method="GET"> 
+        <button name="TestButton" type="submit">View</button>
+        </form>
+    </div>
+    <div class="container">
+        <h1>View Control Table</h1>
+        <p>This table includes all controls that can be implemented to mitigate the tactics and techniques represented in the Connectivity Graph.</p>
+        <form action="/templates/table" method="GET"> 
+        <button name="TestButton" type="submit">View</button>
+        </form>
+    </div>
+</div>
+</body>
+</html> 

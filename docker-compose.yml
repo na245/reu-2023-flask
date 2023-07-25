@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  #driver:
+    #container_name: driver
+    #build: ./dockerTesting
+    #network_mode: "host"
+  flask:
+    container_name: flask-frontend
+    build: ./flask
+    #ports:
+     #- "5000:5000"
+    network_mode: "host" #no host si bindings
