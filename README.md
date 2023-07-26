@@ -6,7 +6,6 @@ A unique list of CVE/CWE's are generated with a static analysis tool, this proje
 ## Getting Started
 
 These instructions will get you a copy of SSPM up and running on your local machine. 
-See deployment for notes on how to deploy SSPM on a live system.
 
 ### Prerequisites
 
@@ -16,7 +15,7 @@ Docker
 
 ### Installing
 
-To deploy BRON on top of ArangoDB, clone the BRON repository and run:
+To deploy BRON on top of ArangoDB, clone the [BRON repository](https://github.com/ALFA-group/BRON) and run:
 ```
 docker-compose up -d
 ```
@@ -44,52 +43,67 @@ the `driver` container logs
 ```
 docker logs -f driver
 ```
+### Working With System Security Plan Manager
 
-End with an example of getting some data out of the system or using it for a little demo
+These instructions will run through the use of SSPM and the produced results
 
-## Running the tests
+### Prerequisites
 
-Explain how to run the automated tests for this system
+Getting Started Completion
+- All four containers must have been successfully ran
+- `brondb` and `flask-frontend` must be currently running
 
-### Break down into end to end tests
+### Beginning the Program
 
-Explain what these tests test and why
-
+To access the SSPM start page, open a webbrowser and go to [localhost:5000](http://localhost:5000/)
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+http://localhost:5000/
 ```
 
-## Deployment
+The start page holds the upload function for the program.
+The files that are uploaded here must be a json file formatted as follows:
+ ```
+ [{
+  "cve": "CVE-2022-22536"
+},{
+  "cve": "CVE-2021-36942"
+}]
+ ```
+ ```
+ [{
+  "control": "CM-7"
+},{
+  "control": "SC-7"
+}]
+ ```
 
-Add additional notes about how to deploy this on a live system
+ The names of the files MUST be in the format
+ - `cve.json`
+ - `control.json`
+
+ To start the program, click the `Test` button
+
+ ### Reading the Results
+
+The results are split into three sections:
+- `View Connectivity Graph` - a graph showing the comprehensive connections of techniques and tactics available to the adversary in an attack
+- `View Attack Paths Graph` - a network graph showing connected techniques that can be used in a sequence to achieve consecutive ATT&CK stages (tactics)
+- `View Control Table` - a table of controls sorted by tactic and techniques that are shown top to bottom in order of recommended implementation
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [Arango DB](https://www.arangodb.com/) - The underlying database structure
+* [BRON](https://github.com/ALFA-group/BRON) - The starting database
+* [Flask](https://flask.palletsprojects.com/en/2.3.x/) - Web App Interface
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Aurora Duskin**
+* **Noah Hassett**
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/na245/reu-2023-flask/contributors) who participated in this project.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* National Science Foundation Award # 1947750
 
