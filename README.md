@@ -152,6 +152,7 @@ The techniques shown and connected can be used in sequence to achieve consecutiv
 The edges within the graph represent the sequencial 'flow' an adversary could use to facilitate an attack on the system.
 
 Disconnected tactics in the Connectivity Graph are ignored and will not be represented in the Network Graph.
+
 ## Built With
 
 * [Arango DB](https://www.arangodb.com/) - The underlying database structure
