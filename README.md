@@ -43,7 +43,7 @@ the `driver` container logs
 ```
 docker logs -f driver
 ```
-### Working With System Security Plan Manager
+## Working With System Security Plan Manager
 
 These instructions will run through the use of SSPM and the produced results
 
@@ -90,6 +90,68 @@ The results are split into three sections:
 - `View Attack Paths Graph` - a network graph showing connected techniques that can be used in a sequence to achieve consecutive ATT&CK stages (tactics)
 - `View Control Table` - a table of controls sorted by tactic and techniques that are shown top to bottom in order of recommended implementation
 
+## Explaining the Project
+
+This section will walk through the program, explaning the process from start to end
+
+### Completing BRON
+
+The program starts with the BRON database. As is, the database is missing information that must be added. The missing information includes:
+- Controls
+- Technique to Controls
+- Tactic to Tactic
+- Remove duplicate data in Tactic to Technique
+
+### Querying the Database
+
+The information needed to find all CVE/CWE's to Techniques, Tactics, and Controls is gathered from queries sent into the BRON database. Queries 
+to the database look similar to this.
+
+```
+for item in cve
+    filter item.original_id in @cve_list
+    for e, v, p in 1..5 inbound item CweCve, CapecCwe, TechniqueCapec
+        filter LENGTH(p.edges) > 2
+        return distinct LAST(p.vertices)._id
+```
+### The Connectivity Graph
+
+This graph shows the comprehensive connections of techniques and tactics available to the adversary in an attack.
+The more connected a tactic or technique are, the more they are able to be exploited.
+
+In the graph you will notice a red tactic, this is the tactic chosen by the algorithm explained in the next section.
+
+### Using the Algorithm 
+
+The algorithm implemented into the SSPM prioritizes tactics in order of recommended mitigation.
+
+The algorithm is a process of two sorts, Tactic and Technique
+#### Tactic 
+Tactic is sorted by the sumber of connections to other tactics.
+As a tactic path is linear, the max number of connections a tactic can have is two.
+- Low: No tactic connections
+- Mid: One tactic connection
+- High: Two tactic connections
+#### Technique
+Techniques are sorted by the number of connections to a single tactic.
+If a tactic has one connection to a technique, the sort is value 1.
+If a tactic has four connections to four different techniques, the sort value is 4.
+A value of 1 is sorted higher than a value of 4
+
+This is a fully sorted table for example
+| Tactic     |  Technique    |
+|------------|---------------|
+| High       |  1, 4, 5, 7   |
+| Mid        |    2, 3, 4    |
+| Low        |  1, 3, 6, 7   |
+
+### The Network Graph
+
+This graph shows the different attack paths that are present in the system.
+The techniques shown and connected can be used in sequence to achieve consecutive ATT&CK stages.
+The edges within the graph represent the sequencial 'flow' an adversary could use to facilitate an attack on the system.
+
+Disconnected tactics in the Connectivity Graph are ignored and will not be represented in the Network Graph.
 ## Built With
 
 * [Arango DB](https://www.arangodb.com/) - The underlying database structure
