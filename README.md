@@ -1,6 +1,6 @@
 # 2023 MSU REU Graph DB
 
-This project is a docker based web application to enhance analysis and mitigation called Security System Plan Manager (SSPM).
+This project is a docker based web application to enhance analysis and mitigation, called Security System Plan Manager (SSPM).
 A unique list of CVE/CWE's are generated with a static analysis tool, this project will produce a comprehensive list of attack paths and controls available in the system.
 
 ## Getting Started
