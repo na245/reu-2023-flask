@@ -135,7 +135,15 @@ def create_table(db, prioritize_lists, data_list):
         for tech_id in cursor:
             for data in data_list:
                 if tech_id == data['Technique ID']:
-                    table_list.append({tactic_id:data})
+                    query = 'for tac in tactic '\
+                    + 'filter tac._id == @tactic_id '\
+                    + 'return tac.name'
+                
+                    bind_var = {'tactic_id': tactic_id}
+                    cursor_tac = db.aql.execute(query, bind_vars=bind_var)
+                    
+                    tactic = tactic_id + ' (' + next(cursor_tac) + ')'
+                    table_list.append({tactic:data})
                     break
 
     # creates and adds the json objects to the file
