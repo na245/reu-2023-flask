@@ -135,6 +135,7 @@ def create_table(db, prioritize_lists, data_list):
         for tech_id in cursor:
             for data in data_list:
                 if tech_id == data['Technique ID']:
+                    
                     query = 'for tac in tactic '\
                     + 'filter tac._id == @tactic_id '\
                     + 'return tac.name'
