@@ -157,7 +157,7 @@ def main():
         in_file_path = os.path.join(curDir, "/uploads", in_file)
 
         # checks the control json file that specified in command line is valid
-        ctrl_file = 'control.json'
+        ctrl_file = 'controls.json'
         ctrl_file_path = os.path.join(curDir, "/uploads", ctrl_file)
         #if not os.path.isfile(ctrl_file):
             #print('Error: File Not Found')
