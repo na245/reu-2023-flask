@@ -155,6 +155,8 @@ def create_table(db, prioritize_lists, data_list):
     with open('needed_controls.json', 'r') as out_file:
         json_objects = json.load(out_file)
         with open('/templates/table.html', 'w') as control_html:
+            control_html.write('<h1>Table</h1><p>explain the table<p><style>'
+                               + 'h1 {text-align: center;} p {text-align: center;} </style>')
             for obj in json_objects:
                 build_direction = "LEFT_TO_RIGHT"
                 table_attributes = {"width": 100, "align" : "center", "border": 1}
