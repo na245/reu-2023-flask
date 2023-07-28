@@ -152,7 +152,7 @@ def main():
     try:
         # checks the cve/cwe json file that specified in command line is valid
         uploads = os.listdir("uploads")
-        in_file = 'cve.json'
+        in_file = 'vulnerabilities.json'
         curDir = os.getcwd()
         in_file_path = os.path.join(curDir, "/uploads", in_file)
 
@@ -183,7 +183,7 @@ def main():
                     print('Invalid (not \'cve\'/\'cwe\') item detected from the input json file')
                     break
     except IndexError:
-        print("Usage: [file_name] [cve/cwe.json] [controls.json]")
+        print("Usage: [file_name] [vulnerabilities.json] [control.json]")
 
 if __name__ == '__main__':
     main()
