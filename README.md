@@ -61,25 +61,32 @@ http://localhost:5000/
 ```
 
 The start page holds the upload function for the program.
-The files that are uploaded here must be a json file formatted as follows:
+The files that are uploaded here **MUST** be a json file formatted as follows:
  ```
- [{
+[{
   "cve": "CVE-2022-22536"
 },{
   "cve": "CVE-2021-36942"
 }]
  ```
  ```
- [{
+[{
+  "cwe": "119"
+},{
+  "cwe": "787"
+}]
+ ```
+ ```
+[{
   "control": "CM-7"
 },{
   "control": "SC-7"
 }]
  ```
 
- The names of the files MUST be in the format
- - `cve.json`
- - `control.json`
+ The names of the files **MUST** be in the format
+ - `vulnerabilities.json` - this file **MUST** be in the CVE **OR** CWE format
+ - `controls.json`- this file **MUST** be in the Control format
 
  To start the program, click the `Test` button
 
