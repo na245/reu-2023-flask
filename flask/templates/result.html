@@ -5,27 +5,40 @@
 <body>
 
 <h1>Analysis Complete</h1>
-<h3>Select a graph to view.</h3>
+<h3>Select a result to view<br>
+The results should be viewed in order of Connectivity Graph, Network Graph, then Control Table<br>
+The connectivity graph will show all vulnerabilities within your system that you have no protections from.
+Understanding these vulnerabilities will improve understanding in the Network Graph.
+The Network graph will show the possible paths of connected vulnerabilities of an adversary attack.
+Knowing your systems weaknesses, the Control Table offers recommended mitigations to help secure your system.</h3>
 
 <div class="mainContainer">
     <div class="container">
         <h1>View Connectivity Graph</h1>
-        <p>This graph shows all tactics and techniques that can be reached through the vulnerabilities in the system.<br>
-            The red colored node in this graph is the suggested most influencial tactic that should be mitigated first.</p>
+        <p>This graph shows the comprehensive connections of techniques and tactics available to the adversary in an attack.
+        The more connected a tactic or technique are, the more they are able to be exploited.
+        Due to the linearity of an attack path, some tactics may be unreachable from other tactics, this covers the disconnectivity of the graph.
+        Lastly, this graph will also highlight the most prioritized tactic selected by the user or by the algorithm if left blank at upload.</p>
         <form action="/templates/graph" method="GET"> 
         <button name="TestButton" type="submit">View</button>
         </form>
     </div>
     <div class="container">
         <h1>View Attack Paths Graph</h1>
-        <p>This graph presents possible attack paths created from the techniques available in the Connectivity Graph.</p>
+        <p>This graph expands on the previous connectivity graph and is able to show possible attack paths an adversary can use against your system.
+        By reading the graph from source to sink, the techniques appear in order of possible ATT&CK tactics or stages in a cyber attack.
+        The edges between tactics represents the adversary completing that technique and moving farther into the attack.
+        </p>
         <form action="/templates/network_flow" method="GET"> 
         <button name="TestButton" type="submit">View</button>
         </form>
     </div>
     <div class="container">
         <h1>View Control Table</h1>
-        <p>This table includes all controls that can be implemented to mitigate the tactics and techniques represented in the Connectivity Graph.</p>
+        <p>This table shows all information relevant for mitigations to better secure your system.
+        Now that you have seen the vulnerabilities and implications within your system, this table will serve as a guide to secure it.
+        It is reccomended that you implement all controls related to your vulnerabilities for maximum protections.
+        </p>
         <form action="/templates/table" method="GET"> 
         <button name="TestButton" type="submit">View</button>
         </form>
