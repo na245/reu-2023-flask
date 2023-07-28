@@ -155,8 +155,18 @@ def create_table(db, prioritize_lists, data_list):
     with open('needed_controls.json', 'r') as out_file:
         json_objects = json.load(out_file)
         with open('/templates/table.html', 'w') as control_html:
-            control_html.write('<h1>Table</h1><p>explain the table<p><style>'
-                               + 'h1 {text-align: center;} p {text-align: center;} </style>')
+            table_detail = '<ul><li>Code analysis has revealed that the system has the '\
+                        + 'vulnerabilities identified by their CVE ids.</li><li>Each vulnerability'\
+                        + ' found is followed by the attack technique that can be used to exploit '\
+                        + 'that vulnerability.</li><li>The attack stage id that an adversary could'\
+                        + ' achieve by exploiting the vulnerability with the attack technique is '\
+                        + 'given below.</li><li>Also shown are the set of security controls '\
+                        + 'suggested to mitigate the system\'s exposure to the specified attack '\
+                        + 'technique.</li></ul>'
+            
+            control_html.write('<h1>Table</h1><div>' + table_detail + '</div><style>h1 '
+                               + '{text-align: center;} div {text-align: center;} ul {display: '
+                               + 'inline-block; text-align: left;}</style>')
             for obj in json_objects:
                 build_direction = "LEFT_TO_RIGHT"
                 table_attributes = {"width": 100, "align" : "center", "border": 1}
