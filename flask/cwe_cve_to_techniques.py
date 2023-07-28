@@ -140,12 +140,26 @@ def find_tech_not_ctrl(controls, cursor_tech):
         + 'item TacticTechnique ' \
         + 'return { From: v._from, To: v._to }'
     
-    # specifing that @tech_list in the query is tech_list that we declared
+    # specifying that @tech_list in the query is tech_list that we declared
     bind_vars = {'tech_list': tech_list}
     cursor_tac_tec = db.aql.execute(query, bind_vars=bind_vars)
 
+    # NOTE: need if statement??
+    with open('/uploads/input.txt', 'r') as in_txt:
+        user_tac = in_txt.read()
+    
+    query = 'for tac in tactic '\
+        + 'filter tac.original_id == @user_tac '\
+        + 'return tac._id'
+    
+    bind_vars = {'user_tac': user_tac}
+    cursor_tac = db.aql.execute(query, bind_vars=bind_vars)
+    user_tac_id = ''
+    for tac_id in cursor_tac:
+        user_tac_id = tac_id
+
     # calls function to make a graph
-    tech_tac_graph.make_graph(db, cursor_tac_tec, data_list)
+    tech_tac_graph.make_graph(db, cursor_tac_tec, data_list, user_tac_id)
 
 
 def main():
