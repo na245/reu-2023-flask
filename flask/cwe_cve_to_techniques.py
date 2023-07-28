@@ -152,7 +152,7 @@ def main():
     try:
         # checks the cve/cwe json file that specified in command line is valid
         uploads = os.listdir("uploads")
-        in_file = 'cve.json'
+        in_file = 'vulnerability.json'
         curDir = os.getcwd()
         in_file_path = os.path.join(curDir, "/uploads", in_file)
 
