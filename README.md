@@ -1,7 +1,7 @@
 # 2023 MSU REU Graph DB
 
 This project is a docker based web application to enhance analysis and mitigation, called Security System Plan Manager (SSPM).
-A unique list of CVE/CWE's are generated with a static analysis tool, this project will produce a comprehensive list of attack paths and controls available in the system.
+A unique list of CVE/CWE's is generated with a static analysis tool, this project will produce a comprehensive list of attack paths present and security controls recommended for the system. SSPM can be used to know which NIST 800-53 Security Controls should be prioritized to efficiently protect the system.
 
 ## Getting Started
 
@@ -14,6 +14,8 @@ Docker
 - Docker Compose
 
 ### Installing
+
+BRON is a graph database made by a research team at MIT that combines threat data from [MITRE ATT&CK](https://attack.mitre.org/), [CAPEC](https://capec.mitre.org/), [CWE](https://cwe.mitre.org/), [CVE](https://nvd.nist.gov), and a few others. The data types are linked with bi-directional edges. This graph was created to link and evaluate public threat and mitigation data for cyber hunting.
 
 To deploy BRON on top of ArangoDB, clone the [BRON repository](https://github.com/ALFA-group/BRON) and run:
 ```
@@ -61,7 +63,7 @@ http://localhost:5000/
 ```
 
 The start page holds the upload function for the program.
-The files that are uploaded here must be a json file formatted as follows:
+The files that are uploaded here **MUST** be a json file formatted as follows:
  ```
  [{
   "cve": "CVE-2022-22536"
@@ -71,17 +73,24 @@ The files that are uploaded here must be a json file formatted as follows:
  ```
  ```
  [{
+  "cwe":"119"
+ },{
+  "cwe":"787"
+ }]
+ ```
+ ```
+ [{
   "control": "CM-7"
 },{
   "control": "SC-7"
 }]
  ```
 
- The names of the files MUST be in the format
- - `cve.json`
- - `control.json`
+ The names of the files **MUST** be in the format
+ - `vulnerabilities.json` - this file **MUST** be in the CVE **OR** CWE format
+ - `controls.json` - this file **MUST** be in the Control format
 
- To start the program, click the `Test` button
+ To start the program, click the `Upload` button
 
  ### Reading the Results
 
