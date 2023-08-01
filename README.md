@@ -1,6 +1,6 @@
 # 2023 MSU REU Graph DB
 
-This project is a docker based web application to enhance analysis and mitigation, called Security System Plan Manager (SSPM).
+This project is a docker-based web application to enhance analysis and mitigation, called Security System Plan Manager (SSPM).
 A unique list of CVE/CWE's is generated with a static analysis tool, this project will produce a comprehensive list of attack paths present and security controls recommended for the system. SSPM can be used to know which NIST 800-53 Security Controls should be prioritized to efficiently protect the system.
 
 ## Getting Started
@@ -39,7 +39,7 @@ The deployment is in another two containers:
 - `driver`: a container that collects the extra information and adds it into BRON
 - `flask-frontend`: the front-end container to interface with the SSPM user interface
 
-It may take a few minutes for the driver to finish. It will open the additional data whithin its filesystem,
+It may take a few minutes for the driver to finish. It will open the additional data within its filesystem,
 add to BRON, and complete all collections needed for the program. You can check its completion by monitoring
 the `driver` container logs
 ```
@@ -101,7 +101,7 @@ The results are split into three sections:
 
 ## Explaining the Project
 
-This section will walk through the program, explaning the process from start to end
+This section will walk through the program, explaining the process from start to end
 
 ### Completing BRON
 
