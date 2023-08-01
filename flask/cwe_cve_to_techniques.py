@@ -63,7 +63,7 @@ def read_cwe(data, controls):
         + 'for tc in TechniqueCapec '\
         + 'filter tc._to == capec_cwe._from '\
         + 'collect tech=tc._from into cwe_id=cwe.original_id '\
-        + 'return {tech:tech, cve:unique(cwe_id)}'
+        + 'return {tech:tech, cwe:unique(cwe_id)}'
     
     # specify that @cwe_list in the query is cwe_list
     bind = {'cwe_list': cwe_list}
