@@ -36,7 +36,12 @@ def upload_file():
                 filename = secure_filename(file.filename)
                 print('PAssed:', os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-	    
+
+        # NOTE: added
+        #user_tactic = request.form.get("tactic_id")
+        file = open ('./uploads/input.txt', 'w')
+        file.write('TA00' + request.form.get("tactic_id"))
+        file.close()
         return redirect(url_for('result'))
     return render_template('index.html')
 

@@ -65,21 +65,21 @@ http://localhost:5000/
 The start page holds the upload function for the program.
 The files that are uploaded here **MUST** be a json file formatted as follows:
  ```
- [{
+[{
   "cve": "CVE-2022-22536"
 },{
   "cve": "CVE-2021-36942"
 }]
  ```
  ```
- [{
-  "cwe":"119"
- },{
-  "cwe":"787"
- }]
+[{
+  "cwe": "119"
+},{
+  "cwe": "787"
+}]
  ```
  ```
- [{
+[{
   "control": "CM-7"
 },{
   "control": "SC-7"
@@ -90,7 +90,7 @@ The files that are uploaded here **MUST** be a json file formatted as follows:
  - `vulnerabilities.json` - this file **MUST** be in the CVE **OR** CWE format
  - `controls.json` - this file **MUST** be in the Control format
 
- To start the program, click the `Upload` button
+ To start the program, click the `Test` button
 
  ### Reading the Results
 
@@ -113,26 +113,19 @@ The program starts with the BRON database. As is, the database is missing inform
 
 ### Querying the Database
 
-The information needed to find all CVE/CWE's to Techniques, Tactics, and Controls is gathered from queries sent into the BRON database. Queries 
-to the database look similar to this.
+The information needed to find all CVE/CWE's to Techniques, Tactics, and Controls is gathered from queries sent into the BRON database.
 
-```
-for item in cve
-    filter item.original_id in @cve_list
-    for e, v, p in 1..5 inbound item CweCve, CapecCwe, TechniqueCapec
-        filter LENGTH(p.edges) > 2
-        return distinct LAST(p.vertices)._id
-```
 ### The Connectivity Graph
 
 This graph shows the comprehensive connections of techniques and tactics available to the adversary in an attack.
-The more connected a tactic or technique are, the more they are able to be exploited.
+A tactic with many techniques shows that an adversary can use multiple strategies to complete that stage of an attack.
 
 In the graph you will notice a red tactic, this is the tactic chosen by the algorithm explained in the next section.
 
 ### Using the Algorithm 
 
-The algorithm implemented into the SSPM prioritizes tactics in order of recommended mitigation.
+The algorithm implemented into the SSPM prioritizes tactics in order of easiest mitigation.
+Mitigating this tactic breaks the attack path an attacker could use against your system.
 
 The algorithm is a process of two sorts, Tactic and Technique
 #### Tactic 

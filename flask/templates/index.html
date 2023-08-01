@@ -9,7 +9,10 @@
     <h3>vulnerabilities.json must be CVE or CWE</h3>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file multiple>
-      <input type=submit value=Test>
+      <h3>Enter a Tactic ID to Prioritize (Leave it blank if none)</h3>
       <!input type=submit value=Upload>
+      <label for="tactic id">TA00</label>
+      <input type="text" id="tactic_id" name="tactic_id" placeholder="enter the last 2 digits" maxlength="2">
+      <input type=submit value=Test>
     </form>
-    </div>
+    

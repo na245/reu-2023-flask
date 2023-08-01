@@ -8,7 +8,7 @@ import json2table
 
 
 # method to create web browser graph
-def make_graph(db, cursor_tac_tec, data_list):
+def make_graph(db, cursor_tac_tec, data_list, user_tac):
     #temp
     print('Creating a graph...')
 
@@ -41,8 +41,12 @@ def make_graph(db, cursor_tac_tec, data_list):
             graph.add_edge(tt['_from'], tt['_to'])
             tac_graph.add_edge(tt['_from'], tt['_to'])
 
-    #temp
-    prioritize_lists = show_prioritize(graph) # runs algorithm that finds the prioritize paths
+    # checks whether the tactic specified by the user is in the graph
+    user_pri = None
+    if user_tac in tactech_from_list:
+        user_pri = user_tac
+
+    prioritize_lists = show_prioritize(graph, user_pri) # runs algorithm that finds the prioritize paths
     create_table(db, prioritize_lists, data_list)
 
     net_flow_graph = make_net_flow_graph(graph, tac_graph)
@@ -63,11 +67,12 @@ def sort_list(a_list):
 
 
 # finds priority of tactic
-def show_prioritize(graph):
+def show_prioritize(graph, user_pri):
     # priority of tactic
     high = []
     mid = []
     low = []
+
     # iterate over every node in the graph
     for node in graph.__iter__():
         # if its a tactic node
@@ -75,21 +80,26 @@ def show_prioritize(graph):
             # start the edge type counters
             cnt_tac = 0
             cnt_tech = 0
-            for neighbor in graph.neighbors(node):
-                if 'technique' in neighbor:
-                    # add a technique edge
-                    cnt_tech += 1
-                else:
-                    # add a tactic edge
-                    cnt_tac += 1
-            # sort the nodes into high, mid, and low priority based on tactic to tactic connectivity
-            match cnt_tac:
-                case 0:
-                    low.append((node, cnt_tech))
-                case 1:
-                    mid.append((node, cnt_tech))
-                case _:
-                    high.append((node, cnt_tech))
+
+            # if the tactic is the one that user specified make it the most prioritize node
+            if user_pri != None and user_pri in node:
+                high.append((node, 0))
+            else:
+                for neighbor in graph.neighbors(node):
+                    if 'technique' in neighbor:
+                        # add a technique edge
+                        cnt_tech += 1
+                    else:
+                        # add a tactic edge
+                        cnt_tac += 1
+                # sort the nodes into high, mid, and low priority based on tactic to tactic connectivity
+                match cnt_tac:
+                    case 0:
+                        low.append((node, cnt_tech))
+                    case 1:
+                        mid.append((node, cnt_tech))
+                    case _:
+                        high.append((node, cnt_tech))
     # sort the individual lists
     low = sort_list(low)
     mid = sort_list(mid)
@@ -150,6 +160,18 @@ def create_table(db, prioritize_lists, data_list):
     with open('needed_controls.json', 'r') as out_file:
         json_objects = json.load(out_file)
         with open('/templates/table.html', 'w') as control_html:
+            table_detail = '<ul><li>Code analysis has revealed that the system has the '\
+                        + 'vulnerabilities identified by their CVE ids.</li><li>Each vulnerability'\
+                        + ' found is followed by the attack technique that can be used to exploit '\
+                        + 'that vulnerability.</li><li>The attack stage id that an adversary could'\
+                        + ' achieve by exploiting the vulnerability with the attack technique is '\
+                        + 'given below.</li><li>Also shown are the set of security controls '\
+                        + 'suggested to mitigate the system\'s exposure to the specified attack '\
+                        + 'technique.</li></ul>'
+            
+            control_html.write('<h1>Table</h1><div>' + table_detail + '</div><style>h1 '
+                               + '{text-align: center;} div {text-align: center;} ul {display: '
+                               + 'inline-block; text-align: left;}</style>')
             for obj in json_objects:
                 build_direction = "LEFT_TO_RIGHT"
                 table_attributes = {"width": 100, "align" : "center", "border": 1}
