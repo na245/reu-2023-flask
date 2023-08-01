@@ -3,19 +3,34 @@
       <link rel="stylesheet" href="/static/css/myfile.css">
     </head>
     <div class=container>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class=flashes>
+        {% for message in messages %}
+          <p style="color:red;"><b>{{ message }}</b></p>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
     <title>Upload Multiple Files</title>
     <h1>Upload Multiple Files</h1>
-    <h3>Files must be named controls.json and vulnerabilities.json</h3>
-    <h3>vulnerabilities.json must be CVE or CWE</h3>
+    <!-- <h3>Files must be named controls.json and vulnerabilities.json</h3>
+    <h3>vulnerabilities.json must be CVE or CWE</h3> -->
     <form method=post enctype=multipart/form-data>
-      <input type=file name=file multiple>
+      <label for="control_file"><b>Controls File:</b></label>
+      <input type="file" id="control_file" name="control_file">
+      <label for="vul_file"><b>Vulnerabilities File:</b></label>
+      <input type="file" id="vul_file" name="vul_file">
+      <!-- <input type=file name=file multiple> -->
       <h3>Enter a Tactic ID* (<a href="https://attack.mitre.org/tactics/enterprise/">here</a>) 
         to Prioritize (Leave it blank if none)</h3>
-      <p>*MITRE Enterprise Tactics</p>
-      <!input type=submit value=Upload>
+      <p><b>*</b>MITRE ATT&CK Enterprise Tactics</p>
+      <!-- <input type=submit value=Upload> -->
       <label for="tactic id">TA00</label>
       <input type="text" id="tactic_id" name="tactic_id" placeholder="enter the last 2 digits" 
       maxlength="2">
+      <br><br>
       <input type=submit value=Test>
     </form>
     
