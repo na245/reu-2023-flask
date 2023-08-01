@@ -61,11 +61,6 @@ def make_graph(db, cursor_tac_tec, data_list, user_tac):
     g2.force_atlas_2based() # changing the layout of the graph
     g2.show('/templates/network_flow.html')
 
-    # open the custom PyViz graph in the default web browser
-    #webbrowser.open('file://' + os.path.abspath(os.getcwd()) + '/graph.html')
-    #webbrowser.open('file://' + os.path.abspath(os.getcwd()) + '/network_flow.html')
-
-
 # method to sort the individual priority lists
 def sort_list(a_list):
     return sorted(a_list, key=lambda tup: tup[1], reverse=False)  # lambda arguments : expression
